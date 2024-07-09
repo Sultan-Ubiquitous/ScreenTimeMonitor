@@ -1,5 +1,6 @@
-needed installs: \n
+needed installs:
 
-xdotool: sudo apt-get install xdotool \n
-xprop: sudo dnf install xprop \n
+xdotool: sudo apt-get install xdotool 
+
+xprop: sudo dnf install xprop 
 
