@@ -1,0 +1,18 @@
+So I got a way to retreive information from the screen about the application running and it's duration 
+until the screen changed. so umm yeah now how do I store that data
+
+The eventual broader plan is, to store data per 24 hour basis and then it gets stored into 
+weekly and monthly basis stats and one can view it. average of weeks, average per month etc.
+
+so step 0 is to just store the data,
+will use postgres
+
+def collect_app_usage_data():
+    # Placeholder for the actual logic that collects app name and duration
+    app_name = 'some_app'
+    duration = 300  # Duration in seconds
+
+    # Insert collected data into the database
+    insert_screen_time(app_name, duration)
+
+need to do something like this
