@@ -16,10 +16,11 @@ while True:
         
         if current_window != prev_window:
             end_time = time.time()
-            duration = format_time(end_time - start_time)
+            duration = end_time - start_time
             
             if prev_window is not None:
-                print(f"Window: {prev_window}, Duration: {duration}")
+                print(f"Window: {prev_window}, Duration: {format_time(duration)}")
+                print(duration)
             prev_window = current_window
             start_time = end_time
         
@@ -27,5 +28,4 @@ while True:
 
     except Exception as e:
         print(f"An error occurred: {e}")
-        
 
