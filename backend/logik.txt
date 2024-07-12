@@ -15,4 +15,21 @@ def collect_app_usage_data():
     # Insert collected data into the database
     insert_screen_time(app_name, duration)
 
-need to do something like this
+need to do something like this.
+
+what will be database schema?
+app name: varchar
+duration: float
+
+that's it ig, nothing much needed.
+
+need to see how can I aggregate into weekly basis and monthly basis to average out
+
+so the strategy is:
+collect data but only display data based on current date, lolzy damn.
+and weekly data just aggregate the data per week basis and create a new relation
+then aggregate the daily data for monthly basis into a new table and display it.
+Screw tkinter, will use a web based frontend, I will use the backend to collect the data,
+and to display it will use react and next js, I just need to fetch data from postgres that's it.
+
+alright let's just connect the database with this ducker 

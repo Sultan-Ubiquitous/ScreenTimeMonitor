@@ -36,7 +36,7 @@ while True:
             print(f"Window: {prev_window}, Duration: {duration}")
         prev_window = current_window
         start_time = end_time
-        
+            
     subprocess.call(["sleep", "1"])
     
 
