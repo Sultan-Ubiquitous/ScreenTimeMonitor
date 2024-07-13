@@ -33,3 +33,16 @@ Screw tkinter, will use a web based frontend, I will use the backend to collect 
 and to display it will use react and next js, I just need to fetch data from postgres that's it.
 
 alright let's just connect the database with this ducker 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+alrihty this son of a gun is all giddy and up running,
+now just need to makesure it's up running in the background even when the terminal is closed 
+and need to add a functionality that this script starts automatically when laptop is powered on
+and need to add a functionality to stop it too.
+And let's wait and see how it works tomorrow, and how data is stored on basis of dates and days
+then will decide how to sort the weekly and monthly stats.
+
+I might actually make a small widget to dispaly my screen time, very simple no design no shit
+just displaying data.
+
+Right now priority to run it in background and stop when display is turned off and all.
