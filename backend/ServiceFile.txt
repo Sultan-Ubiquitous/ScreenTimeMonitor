@@ -1,0 +1,22 @@
+  GNU nano 6.2                       /home/sultan_ubiquitous/.config/systemd/user/screen-time-tracker.service                                 
+[Unit]
+Description=Screen Time Tracker
+After=graphical-session.target
+BindsTo=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/python3.12 /home/user/absolute/path/to/your/ServiceScript.py
+Restart=on-failure
+Environment=DISPLAY=:0
+
+
+ExecStopPost=/bin/sh -c 'if [ "$SERVICE_RESULT" = "success" ]; then systemctl --user stop %n; fi'
+
+
+TimeoutStopSec=5
+
+[Install]
+WantedBy=graphical-session.target
+
+
+
