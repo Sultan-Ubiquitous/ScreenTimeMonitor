@@ -8,3 +8,4 @@ xprop: 'sudo dnf install xprop'
 
 psycog2: 'pip install psycopg2' pronounced as psycho-P-G-two
 
+Will update this in a better way soon
