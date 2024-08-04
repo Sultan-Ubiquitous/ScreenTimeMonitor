@@ -64,6 +64,8 @@ def postAppData(app_name, duration):
             conn.close()
             
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
+    
     postAppData("Google Chrome", 100)
+    print('Data posted successfully')
     

@@ -21,7 +21,7 @@ while True:
             
             if prev_window is not None:
                 postAppData(prev_window, duration)
-                print(f"Window: {prev_window}, Duration: {format_time(duration)}")
+                # print(f"Window: {prev_window}, Duration: {format_time(duration)}")
             prev_window = current_window
             start_time = end_time
     
