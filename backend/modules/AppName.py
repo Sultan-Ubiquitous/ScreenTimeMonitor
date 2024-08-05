@@ -5,6 +5,7 @@ def get_friendly_name(class_name):
     mapping = {
         "Code": "Visual Studio Code",
         "notion-snap": "Notion",
+        ",": "Zed"
     }
     return mapping.get(class_name, class_name)
 

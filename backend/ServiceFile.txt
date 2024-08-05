@@ -1,3 +1,7 @@
+Step 1:
+mkdir -p ~/.config/systemd/user/
+nano ~/.config/systemd/user/screen-time-tracker.service
+
 [Unit]
 Description=Screen Time Tracker
 After=graphical-session.target
@@ -5,17 +9,91 @@ BindsTo=graphical-session.target
 
 [Service]
 ExecStart=/usr/bin/python3.12 /home/user/absolute/path/to/your/ServiceScript.py
+ExecStop=/bin/kill -SIGTERM $MAINPID
 Restart=on-failure
 Environment=DISPLAY=:0
-
-
-ExecStopPost=/bin/sh -c 'if [ "$SERVICE_RESULT" = "success" ]; then systemctl --user stop %n; fi'
-
 
 TimeoutStopSec=5
 
 [Install]
 WantedBy=graphical-session.target
+
+Step 2:
+nano ~/.local/bin/screen_time_tracker_handler.sh
+
+#!/bin/bash
+
+case "$1" in
+    pre)
+        # Stop the service before suspend or lid close
+        systemctl --user stop screen-time-tracker.service
+        ;;
+    post)
+        # Start the service after resume or lid open
+        systemctl --user start screen-time-tracker.service
+        ;;
+esac
+
+chmod +x /path/to/screen_time_tracker_handler.sh
+
+Step 3:
+nano ~/.config/systemd/user/screen-time-tracker-suspend.service
+
+[Unit]
+Description=Screen Time Tracker Suspend Handler
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/path/to/screen_time_tracker_handler.sh pre
+ExecStop=/path/to/screen_time_tracker_handler.sh post
+
+[Install]
+WantedBy=sleep.target
+
+Step 4:
+nano ~/.config/systemd/user/screen-time-tracker-lid.service
+
+[Unit]
+Description=Screen Time Tracker Lid Handler
+Before=suspend.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/path/to/screen_time_tracker_handler.sh pre
+ExecStop=/path/to/screen_time_tracker_handler.sh post
+
+[Install]
+WantedBy=suspend.target
+
+Step 5:
+sudo nano /etc/systemd/system/screen-time-tracker-system.service
+
+[Unit]
+Description=Screen Time Tracker System Handler
+Before=sleep.target suspend.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'for u in $(users); do sudo -u $u XDG_RUNTIME_DIR=/run/user/$(id -u $u) systemctl --user start screen-time-tracker-suspend.service screen-time-tracker-lid.service; done'
+ExecStop=/bin/sh -c 'for u in $(users); do sudo -u $u XDG_RUNTIME_DIR=/run/user/$(id -u $u) systemctl --user stop screen-time-tracker-suspend.service screen-time-tracker-lid.service; done'
+
+[Install]
+WantedBy=sleep.target suspend.target
+
+Step 6:
+systemctl --user daemon-reload
+systemctl --user enable screen-time-tracker.service
+systemctl --user enable screen-time-tracker-suspend.service
+systemctl --user enable screen-time-tracker-lid.service
+
+sudo systemctl enable screen-time-tracker-system.service
+sudo systemctl daemon-reload
 
 
 
